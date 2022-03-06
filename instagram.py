@@ -57,7 +57,7 @@ while continueh:
             driver.refresh()
             check=WebDriverWait(driver,20).until(EC.presence_of_element_located((By.XPATH,"/html/body/div[1]/section/main/div/div/article"))).text
         if "This account is private" not in check:
-            if int(WebDriverWait(driver,20).until(EC.presence_of_element_located((By.XPATH,"//section/ul/li[2]"))).text.replace(" followers","").replace(" follower","").replace(",","")) >500:
+            if int(WebDriverWait(driver,20).until(EC.presence_of_element_located((By.XPATH,"//section/ul/li[2]"))).text.replace(" followers","").replace("k","000").replace(".","").replace("m","000000").replace(" follower","").replace(",","")) >500:
                 try:
                     WebDriverWait(driver,20).until(EC.presence_of_element_located((By.XPATH,"//div[@class='eLAPa']"))).click()
                     import datetime
