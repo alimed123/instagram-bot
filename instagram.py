@@ -57,7 +57,7 @@ while continueh:
             driver.refresh()
             check=WebDriverWait(driver,20).until(EC.presence_of_element_located((By.XPATH,"/html/body/div[1]/section/main/div/div/article"))).text
         if "This account is private" not in check:
-            if int(WebDriverWait(driver,20).until(EC.presence_of_element_located((By.XPATH,"//section/ul/li[2]"))).text.replace(" followers","").replace("k","000").replace(".","").replace("m","000000").replace(" follower","").replace(",","")) >500:
+            if int(WebDriverWait(driver,20).until(EC.presence_of_element_located((By.XPATH,"//section/ul/li[2]"))).text.replace(" followers","").replace(" follower","").replace(",","").replace(".","").replace("k","000").replace("m","00000")) >500:
                 try:
                     WebDriverWait(driver,20).until(EC.presence_of_element_located((By.XPATH,"//div[@class='eLAPa']"))).click()
                     import datetime
@@ -70,10 +70,18 @@ while continueh:
                     if number_of_weeks/7 <7:
                         for insta_liky in range(5):
                             try:
-                                p=WebDriverWait(driver,5).until(EC.presence_of_element_located((By.CSS_SELECTOR,".EDfFK > div:nth-child(1) > div:nth-child(1) > div:nth-child(1) > a:nth-child(1) > div:nth-child(1)"))).text
+                                WebDriverWait(driver,3).until(EC.presence_of_element_located((By.XPATH,"/html/body/div[6]/div[3]/div/article/div/div[2]/div/div/div[2]/section[2]/div/span/div"))).click()
+                                p=WebDriverWait(driver,5).until(EC.presence_of_element_located((By.XPATH,"/html/body/div[6]/div[3]/div/article/div/div[2]/div/div/div[2]/section[2]/div/div/div[4]/span"))).text.replace(",","").replace("likes","").replace("like","")
+                                print("yes",int(p))
+                                if int(p)>5000:
+                                    fo.append(i)
+                                    break
                             except:
-                                insta_liky=insta_liky-1
-                                pass
+                                try:
+                                    p=WebDriverWait(driver,5).until(EC.presence_of_element_located((By.CSS_SELECTOR,".EDfFK > div:nth-child(1) > div:nth-child(1) > div:nth-child(1) > a:nth-child(1) > div:nth-child(1)"))).text
+                                except:
+                                    insta_liky=insta_liky-1
+                                    pass
                             try:
                                 small_check=WebDriverWait(driver,5).until(EC.presence_of_element_located((By.XPATH,'/html/body/div[6]/div[3]/div/article/div/div[2]/div/div/div[2]/section[2]/div/div/div'))).text
                                 if "Liked by" in small_check:
@@ -132,10 +140,18 @@ while continueh:
                     if number_of_weeks/7 <7:
                         for insta_liky in range(5):
                             try:
-                                p=WebDriverWait(driver,5).until(EC.presence_of_element_located((By.CSS_SELECTOR,".EDfFK > div:nth-child(1) > div:nth-child(1) > div:nth-child(1) > a:nth-child(1) > div:nth-child(1)"))).text
+                                WebDriverWait(driver,3).until(EC.presence_of_element_located((By.XPATH,"/html/body/div[6]/div[3]/div/article/div/div[2]/div/div/div[2]/section[2]/div/span/div"))).click()
+                                p=WebDriverWait(driver,5).until(EC.presence_of_element_located((By.XPATH,"/html/body/div[6]/div[3]/div/article/div/div[2]/div/div/div[2]/section[2]/div/div/div[4]/span"))).text.replace(",","").replace("likes","").replace("like","")
+                                print("yes",int(p))
+                                if int(p)>5000:
+                                    fo.append(ix)
+                                    break
                             except:
-                                insta_liky=insta_liky-1
-                                pass
+                                try:
+                                    p=WebDriverWait(driver,5).until(EC.presence_of_element_located((By.CSS_SELECTOR,".EDfFK > div:nth-child(1) > div:nth-child(1) > div:nth-child(1) > a:nth-child(1) > div:nth-child(1)"))).text
+                                except:
+                                    insta_liky=insta_liky-1
+                                    pass
                             try:
                                 small_check=WebDriverWait(driver,5).until(EC.presence_of_element_located((By.XPATH,'/html/body/div[6]/div[3]/div/article/div/div[2]/div/div/div[2]/section[2]/div/div/div'))).text
                                 if "Liked by" in small_check:
@@ -172,3 +188,4 @@ while continueh:
             continueh=True
         elif continueh=="n" or continueh=="N":
             continueh=False
+driver.quit()
