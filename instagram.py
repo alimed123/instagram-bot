@@ -28,12 +28,12 @@ while continueh:
     link=input("enter link")
     try:
         driver.get(link)
-        followers_instagram=driver.find_element_by_xpath("/html/body/div[1]/section/main/div/header/section/ul/li[2]/a/div/span").get_attribute("title").replace(",","")
-        following_instagram=driver.find_element_by_xpath("/html/body/div[1]/section/main/div/header/section/ul/li[3]/a/div/span").text.replace(",","")
+        followers_instagram=driver.find_element_by_xpath("//*[@id='react-root']/section/main/div/header/section/ul/li[2]/a/div/span").get_attribute("title").replace(",","")
+        following_instagram=driver.find_element_by_xpath("//*[@id='react-root']/section/main/div/header/section/ul/li[3]/a/div/span").text.replace(",","")
     except:
         driver.refresh()
-        followers_instagram=driver.find_element_by_xpath("/html/body/div[1]/section/main/div/header/section/ul/li[2]/a/div/span").get_attribute("title").replace(",","")
-        following_instagram=driver.find_element_by_xpath("/html/body/div[1]/section/main/div/header/section/ul/li[3]/a/div/span").text.replace(",","")
+        followers_instagram=driver.find_element_by_xpath("//*[@id='react-root']/section/main/div/header/section/ul/li[2]/a/div/span").get_attribute("title").replace(",","")
+        following_instagram=driver.find_element_by_xpath("//*[@id='react-root']/section/main/div/header/section/ul/li[3]/a/div/span").text.replace(",","")
     #checking_followers
     fo=[]
     followerss=[]
