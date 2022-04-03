@@ -49,7 +49,7 @@ while continueh:
     except:
         pass
     time.sleep(2)
-    for _ in range(round( int(followers_instagram) // 10)):
+    for _ in range(round( int(followers_instagram) // 12)):
         driver.find_element_by_xpath("//div[6]/div/div/div/div[2]").send_keys(Keys.END)
         time.sleep(3)
         followers = driver.find_elements_by_xpath('//div/div/span/a')
@@ -170,10 +170,9 @@ while continueh:
         WebDriverWait(driver,1).until(EC.presence_of_element_located((By.XPATH,"//section/ul/li[3]"))).click()
     except:
         pass
-    for _ in range(round( int(following_instagram) // 10)):
+    for _ in range(round( int(following_instagram) // 12)):
         time.sleep(3)
         driver.find_element_by_xpath("//div[6]/div/div/div/div[3]").send_keys(Keys.END)
-        time.sleep(3)
         following = driver.find_elements_by_xpath('//div/div/span/a')
 
         # Getting url from href attribute
