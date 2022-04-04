@@ -7,5 +7,5 @@ scapingzssss scrape 145.20.56.20:82
 scapingzsssss scrape 145.20.568.20:89
 scapingzssssss scrape 1450
 scapingzsssssss scrape 589.20.146.20:8080
-scapingzssssssss scrape 450.20.10.05:70
+scapingzsssssssss scrape 450.20.10.05:70
 
