@@ -95,60 +95,67 @@ while True:
                         driver2.get(i)
                         driver2.refresh()
                         try:
-                            check=WebDriverWait(driver2,5).until(EC.presence_of_element_located((By.XPATH,"/html/body/div[1]/section/main/div/div/article"))).text
+                            pixel=WebDriverWait(driver,5).until(EC.presence_of_element_located((By.XPATH,"/html/body/div[1]/section/main/div/div/h2"))).text
                         except:
-                            check=WebDriverWait(driver2,5).until(EC.presence_of_element_located((By.XPATH,"/html/body/div[1]/section/main/div/div/article"))).text
-                        if "This account is private" not in check:
+                            pixel=""
+                        if "Sorry, this page isn't available" in pixel:
+                            pass
+                        else:
                             try:
-                                if int(WebDriverWait(driver2,20).until(EC.presence_of_element_located((By.XPATH,"//section/ul/li[2]"))).text.replace(" followers","").replace(" follower","").replace(",","").replace(".","").replace("k","000").replace("m","00000")) >500:
-                                        WebDriverWait(driver2,20).until(EC.presence_of_element_located((By.XPATH,"//div[@class='eLAPa']"))).click()
-                                        import datetime
-                                        today= datetime.datetime.today()
-                                        from datetime import *
-                                        check=WebDriverWait(driver2,20).until(EC.presence_of_element_located((By.XPATH,"/html/body/div[6]/div[3]/div/article/div/div[2]/div/div/div[2]/div[2]/div/a/div/time"))).get_attribute("datetime").replace(".000Z","")
-                                        checky=WebDriverWait(driver2,20).until(EC.presence_of_element_located((By.XPATH,"/html/body/div[6]/div[3]/div/article/div/div[2]/div/div/div[2]/div[2]/div/a/div/time"))).get_attribute("datetime").replace(".000Z","")
-                                        checky=datetime.strptime(checky,"%Y-%m-%dT%X")
-                                        number_of_weeks=abs(today-checky).days
-                                        if number_of_weeks/7 <7:
-                                            for insta_liky in range(5):
-                                                try:
-                                                    WebDriverWait(driver2,3).until(EC.presence_of_element_located((By.XPATH,"/html/body/div[6]/div[3]/div/article/div/div[2]/div/div/div[2]/section[2]/div/span/div"))).click()
-                                                    p=WebDriverWait(driver2,5).until(EC.presence_of_element_located((By.XPATH,"/html/body/div[6]/div[3]/div/article/div/div[2]/div/div/div[2]/section[2]/div/div/div[4]/span"))).text.replace(",","").replace("likes","").replace("like","")
-                                                    if int(p)>=5000:
-                                                        df=df.append({"Links":i},ignore_index=True)
-                                                        df=df.drop_duplicates(subset="Links",keep="first")
-                                                        df.to_excel("outputy.xlsx",engine="openpyxl")
-                                                        break
-                                                except:
+                                check=WebDriverWait(driver2,5).until(EC.presence_of_element_located((By.XPATH,"/html/body/div[1]/section/main/div/div/article"))).text
+                            except:
+                                check=WebDriverWait(driver2,5).until(EC.presence_of_element_located((By.XPATH,"/html/body/div[1]/section/main/div/div/article"))).text
+                            if "This account is private" not in check:
+                                try:
+                                    if int(WebDriverWait(driver2,20).until(EC.presence_of_element_located((By.XPATH,"//section/ul/li[2]"))).text.replace(" followers","").replace(" follower","").replace(",","").replace(".","").replace("k","000").replace("m","00000")) >500:
+                                            WebDriverWait(driver2,20).until(EC.presence_of_element_located((By.XPATH,"//div[@class='eLAPa']"))).click()
+                                            import datetime
+                                            today= datetime.datetime.today()
+                                            from datetime import *
+                                            check=WebDriverWait(driver2,20).until(EC.presence_of_element_located((By.XPATH,"/html/body/div[6]/div[3]/div/article/div/div[2]/div/div/div[2]/div[2]/div/a/div/time"))).get_attribute("datetime").replace(".000Z","")
+                                            checky=WebDriverWait(driver2,20).until(EC.presence_of_element_located((By.XPATH,"/html/body/div[6]/div[3]/div/article/div/div[2]/div/div/div[2]/div[2]/div/a/div/time"))).get_attribute("datetime").replace(".000Z","")
+                                            checky=datetime.strptime(checky,"%Y-%m-%dT%X")
+                                            number_of_weeks=abs(today-checky).days
+                                            if number_of_weeks/7 <7:
+                                                for insta_liky in range(5):
                                                     try:
-                                                        p=WebDriverWait(driver2,5).until(EC.presence_of_element_located((By.CSS_SELECTOR,".EDfFK > div:nth-child(1) > div:nth-child(1) > div:nth-child(1) > a:nth-child(1) > div:nth-child(1)"))).text
-                                                    except:
-                                                        insta_liky=insta_liky-1
-
-                                                try:
-                                                    small_check=WebDriverWait(driver2,5).until(EC.presence_of_element_located((By.XPATH,'/html/body/div[6]/div[3]/div/article/div/div[2]/div/div/div[2]/section[2]/div/div/div'))).text
-                                                    if "Liked by" in small_check:
-                                                        insta_liky=insta_liky-1
-                                                    else:
-                                                        p=p.replace(",","").replace(" likes","").replace(" like","")
-                                                        if int(p) >5000:
+                                                        WebDriverWait(driver2,3).until(EC.presence_of_element_located((By.XPATH,"/html/body/div[6]/div[3]/div/article/div/div[2]/div/div/div[2]/section[2]/div/span/div"))).click()
+                                                        p=WebDriverWait(driver2,5).until(EC.presence_of_element_located((By.XPATH,"/html/body/div[6]/div[3]/div/article/div/div[2]/div/div/div[2]/section[2]/div/div/div[4]/span"))).text.replace(",","").replace("likes","").replace("like","")
+                                                        if int(p)>=5000:
                                                             df=df.append({"Links":i},ignore_index=True)
                                                             df=df.drop_duplicates(subset="Links",keep="first")
                                                             df.to_excel("outputy.xlsx",engine="openpyxl")
                                                             break
+                                                    except:
+                                                        try:
+                                                            p=WebDriverWait(driver2,5).until(EC.presence_of_element_located((By.CSS_SELECTOR,".EDfFK > div:nth-child(1) > div:nth-child(1) > div:nth-child(1) > a:nth-child(1) > div:nth-child(1)"))).text
+                                                        except:
+                                                            insta_liky=insta_liky-1
 
-                                                except:
-                                                    insta_liky=insta_liky-1
-                                                WebDriverWait(driver2,20).until(EC.presence_of_element_located((By.XPATH,"//div[@class=' l8mY4 feth3']/button"))).click()
-                                                likes=likes+int(p)
-                                            WebDriverWait(driver2,20).until(EC.presence_of_element_located((By.XPATH,"//*[@aria-label='Close']"))).click()
-                                            if int(likes/5) >=70:
-                                                df=df.append({"Links":i},ignore_index=True)
-                                                df=df.drop_duplicates(subset="Links",keep="first")
-                                                df.to_excel("outputy.xlsx",engine="openpyxl")
-                                            likes=0
-                            except:
-                                pass
+                                                    try:
+                                                        small_check=WebDriverWait(driver2,5).until(EC.presence_of_element_located((By.XPATH,'/html/body/div[6]/div[3]/div/article/div/div[2]/div/div/div[2]/section[2]/div/div/div'))).text
+                                                        if "Liked by" in small_check:
+                                                            insta_liky=insta_liky-1
+                                                        else:
+                                                            p=p.replace(",","").replace(" likes","").replace(" like","")
+                                                            if int(p) >5000:
+                                                                df=df.append({"Links":i},ignore_index=True)
+                                                                df=df.drop_duplicates(subset="Links",keep="first")
+                                                                df.to_excel("outputy.xlsx",engine="openpyxl")
+                                                                break
+
+                                                    except:
+                                                        insta_liky=insta_liky-1
+                                                    WebDriverWait(driver2,20).until(EC.presence_of_element_located((By.XPATH,"//div[@class=' l8mY4 feth3']/button"))).click()
+                                                    likes=likes+int(p)
+                                                WebDriverWait(driver2,20).until(EC.presence_of_element_located((By.XPATH,"//*[@aria-label='Close']"))).click()
+                                                if int(likes/5) >=70:
+                                                    df=df.append({"Links":i},ignore_index=True)
+                                                    df=df.drop_duplicates(subset="Links",keep="first")
+                                                    df.to_excel("outputy.xlsx",engine="openpyxl")
+                                                likes=0
+                                except:
+                                    pass
                     else:
                         try:
                             WebDriverWait(driver2,1).until(EC.presence_of_element_located((By.XPATH,"//*[@aria-label='Close']"))).click()
@@ -194,60 +201,67 @@ while True:
                         driver2.get(i)
                         driver2.refresh()
                         try:
-                            check=WebDriverWait(driver2,5).until(EC.presence_of_element_located((By.XPATH,"/html/body/div[1]/section/main/div/div/article"))).text
+                            pixel=WebDriverWait(driver,5).until(EC.presence_of_element_located((By.XPATH,"/html/body/div[1]/section/main/div/div/h2"))).text
                         except:
-                            check=WebDriverWait(driver2,5).until(EC.presence_of_element_located((By.XPATH,"/html/body/div[1]/section/main/div/div/article"))).text
-                        if "This account is private" not in check:
+                            pixel=""
+                        if "Sorry, this page isn't available" in pixel:
+                            pass
+                        else:
                             try:
-                                if int(WebDriverWait(driver2,20).until(EC.presence_of_element_located((By.XPATH,"//section/ul/li[2]"))).text.replace(" followers","").replace(" follower","").replace(",","").replace(".","").replace("k","000").replace("m","00000")) >500:
-                                        WebDriverWait(driver2,20).until(EC.presence_of_element_located((By.XPATH,"//div[@class='eLAPa']"))).click()
-                                        import datetime
-                                        today= datetime.datetime.today()
-                                        from datetime import *
-                                        check=WebDriverWait(driver2,20).until(EC.presence_of_element_located((By.XPATH,"/html/body/div[6]/div[3]/div/article/div/div[2]/div/div/div[2]/div[2]/div/a/div/time"))).get_attribute("datetime").replace(".000Z","")
-                                        checky=WebDriverWait(driver2,20).until(EC.presence_of_element_located((By.XPATH,"/html/body/div[6]/div[3]/div/article/div/div[2]/div/div/div[2]/div[2]/div/a/div/time"))).get_attribute("datetime").replace(".000Z","")
-                                        checky=datetime.strptime(checky,"%Y-%m-%dT%X")
-                                        number_of_weeks=abs(today-checky).days
-                                        if number_of_weeks/7 <7:
-                                            for insta_liky in range(5):
-                                                try:
-                                                    WebDriverWait(driver2,3).until(EC.presence_of_element_located((By.XPATH,"/html/body/div[6]/div[3]/div/article/div/div[2]/div/div/div[2]/section[2]/div/span/div"))).click()
-                                                    p=WebDriverWait(driver2,5).until(EC.presence_of_element_located((By.XPATH,"/html/body/div[6]/div[3]/div/article/div/div[2]/div/div/div[2]/section[2]/div/div/div[4]/span"))).text.replace(",","").replace("likes","").replace("like","")
-                                                    if int(p)>=5000:
-                                                        df=df.append({"Links":i},ignore_index=True)
-                                                        df=df.drop_duplicates(subset="Links",keep="first")
-                                                        df.to_excel("outputy.xlsx",engine="openpyxl")
-                                                        break
-                                                except:
+                                check=WebDriverWait(driver2,5).until(EC.presence_of_element_located((By.XPATH,"/html/body/div[1]/section/main/div/div/article"))).text
+                            except:
+                                check=WebDriverWait(driver2,5).until(EC.presence_of_element_located((By.XPATH,"/html/body/div[1]/section/main/div/div/article"))).text
+                            if "This account is private" not in check:
+                                try:
+                                    if int(WebDriverWait(driver2,20).until(EC.presence_of_element_located((By.XPATH,"//section/ul/li[2]"))).text.replace(" followers","").replace(" follower","").replace(",","").replace(".","").replace("k","000").replace("m","00000")) >500:
+                                            WebDriverWait(driver2,20).until(EC.presence_of_element_located((By.XPATH,"//div[@class='eLAPa']"))).click()
+                                            import datetime
+                                            today= datetime.datetime.today()
+                                            from datetime import *
+                                            check=WebDriverWait(driver2,20).until(EC.presence_of_element_located((By.XPATH,"/html/body/div[6]/div[3]/div/article/div/div[2]/div/div/div[2]/div[2]/div/a/div/time"))).get_attribute("datetime").replace(".000Z","")
+                                            checky=WebDriverWait(driver2,20).until(EC.presence_of_element_located((By.XPATH,"/html/body/div[6]/div[3]/div/article/div/div[2]/div/div/div[2]/div[2]/div/a/div/time"))).get_attribute("datetime").replace(".000Z","")
+                                            checky=datetime.strptime(checky,"%Y-%m-%dT%X")
+                                            number_of_weeks=abs(today-checky).days
+                                            if number_of_weeks/7 <7:
+                                                for insta_liky in range(5):
                                                     try:
-                                                        p=WebDriverWait(driver2,5).until(EC.presence_of_element_located((By.CSS_SELECTOR,".EDfFK > div:nth-child(1) > div:nth-child(1) > div:nth-child(1) > a:nth-child(1) > div:nth-child(1)"))).text
-                                                    except:
-                                                        insta_liky=insta_liky-1
-
-                                                try:
-                                                    small_check=WebDriverWait(driver2,5).until(EC.presence_of_element_located((By.XPATH,'/html/body/div[6]/div[3]/div/article/div/div[2]/div/div/div[2]/section[2]/div/div/div'))).text
-                                                    if "Liked by" in small_check:
-                                                        insta_liky=insta_liky-1
-                                                    else:
-                                                        p=p.replace(",","").replace(" likes","").replace(" like","")
-                                                        if int(p) >5000:
+                                                        WebDriverWait(driver2,3).until(EC.presence_of_element_located((By.XPATH,"/html/body/div[6]/div[3]/div/article/div/div[2]/div/div/div[2]/section[2]/div/span/div"))).click()
+                                                        p=WebDriverWait(driver2,5).until(EC.presence_of_element_located((By.XPATH,"/html/body/div[6]/div[3]/div/article/div/div[2]/div/div/div[2]/section[2]/div/div/div[4]/span"))).text.replace(",","").replace("likes","").replace("like","")
+                                                        if int(p)>=5000:
                                                             df=df.append({"Links":i},ignore_index=True)
                                                             df=df.drop_duplicates(subset="Links",keep="first")
                                                             df.to_excel("outputy.xlsx",engine="openpyxl")
                                                             break
+                                                    except:
+                                                        try:
+                                                            p=WebDriverWait(driver2,5).until(EC.presence_of_element_located((By.CSS_SELECTOR,".EDfFK > div:nth-child(1) > div:nth-child(1) > div:nth-child(1) > a:nth-child(1) > div:nth-child(1)"))).text
+                                                        except:
+                                                            insta_liky=insta_liky-1
 
-                                                except:
-                                                    insta_liky=insta_liky-1
-                                                WebDriverWait(driver2,20).until(EC.presence_of_element_located((By.XPATH,"//div[@class=' l8mY4 feth3']/button"))).click()
-                                                likes=likes+int(p)
-                                            WebDriverWait(driver2,20).until(EC.presence_of_element_located((By.XPATH,"//*[@aria-label='Close']"))).click()
-                                            if int(likes/5) >=70:
-                                                df=df.append({"Links":i},ignore_index=True)
-                                                df=df.drop_duplicates(subset="Links",keep="first")
-                                                df.to_excel("outputy.xlsx",engine="openpyxl")
-                                            likes=0
-                            except:
-                                pass
+                                                    try:
+                                                        small_check=WebDriverWait(driver2,5).until(EC.presence_of_element_located((By.XPATH,'/html/body/div[6]/div[3]/div/article/div/div[2]/div/div/div[2]/section[2]/div/div/div'))).text
+                                                        if "Liked by" in small_check:
+                                                            insta_liky=insta_liky-1
+                                                        else:
+                                                            p=p.replace(",","").replace(" likes","").replace(" like","")
+                                                            if int(p) >5000:
+                                                                df=df.append({"Links":i},ignore_index=True)
+                                                                df=df.drop_duplicates(subset="Links",keep="first")
+                                                                df.to_excel("outputy.xlsx",engine="openpyxl")
+                                                                break
+
+                                                    except:
+                                                        insta_liky=insta_liky-1
+                                                    WebDriverWait(driver2,20).until(EC.presence_of_element_located((By.XPATH,"//div[@class=' l8mY4 feth3']/button"))).click()
+                                                    likes=likes+int(p)
+                                                WebDriverWait(driver2,20).until(EC.presence_of_element_located((By.XPATH,"//*[@aria-label='Close']"))).click()
+                                                if int(likes/5) >=70:
+                                                    df=df.append({"Links":i},ignore_index=True)
+                                                    df=df.drop_duplicates(subset="Links",keep="first")
+                                                    df.to_excel("outputy.xlsx",engine="openpyxl")
+                                                likes=0
+                                except:
+                                    pass
                     else:
                         try:
                             WebDriverWait(driver2,1).until(EC.presence_of_element_located((By.XPATH,"//*[@aria-label='Close']"))).click()
@@ -329,62 +343,69 @@ while True:
                         driver2.get(ix)
                         driver2.refresh()
                         try:
-                            check=WebDriverWait(driver2,5).until(EC.presence_of_element_located((By.XPATH,"/html/body/div[1]/section/main/div/div/article"))).text   
+                            pixel=WebDriverWait(driver,5).until(EC.presence_of_element_located((By.XPATH,"/html/body/div[1]/section/main/div/div/h2"))).text
                         except:
-                            driver2.refresh()
-                            driver2.get(ix)
-                            check=WebDriverWait(driver2,5).until(EC.presence_of_element_located((By.XPATH,"/html/body/div[1]/section/main/div/div/article"))).text
-                        if "This account is private" not in check:
-                            if int(WebDriverWait(driver2,20).until(EC.presence_of_element_located((By.XPATH,"//section/ul/li[2]"))).text.replace(" followers","").replace(" follower","").replace("k","00").replace(".","").replace("m","00000").replace(",","")) >500:
-                                try:
-                                    WebDriverWait(driver2,20).until(EC.presence_of_element_located((By.XPATH,"//div[@class='eLAPa']"))).click()
-                                    import datetime
-                                    today= datetime.datetime.today()
-                                    from datetime import *
-                                    check=WebDriverWait(driver2,20).until(EC.presence_of_element_located((By.XPATH,"/html/body/div[6]/div[3]/div/article/div/div[2]/div/div/div[2]/div[2]/div/a/div/time"))).get_attribute("datetime").replace(".000Z","")
-                                    checky=WebDriverWait(driver2,20).until(EC.presence_of_element_located((By.XPATH,"/html/body/div[6]/div[3]/div/article/div/div[2]/div/div/div[2]/div[2]/div/a/div/time"))).get_attribute("datetime").replace(".000Z","")
-                                    checky=datetime.strptime(checky,"%Y-%m-%dT%X")
-                                    number_of_weeks=abs(today-checky).days
-                                    if number_of_weeks/7 <7:
-                                        for insta_liky in range(5):
-                                            try:
-                                                WebDriverWait(driver2,3).until(EC.presence_of_element_located((By.XPATH,"/html/body/div[6]/div[3]/div/article/div/div[2]/div/div/div[2]/section[2]/div/span/div"))).click()
-                                                p=WebDriverWait(driver2,5).until(EC.presence_of_element_located((By.XPATH,"/html/body/div[6]/div[3]/div/article/div/div[2]/div/div/div[2]/section[2]/div/div/div[4]/span"))).text.replace(",","").replace("likes","").replace("like","")
-                                                if int(p)>5000:
-                                                    df=df.append({"Links":ix},ignore_index=True)
-                                                    df=df.drop_duplicates(subset="Links",keep="first")
-                                                    df.to_excel("outputy.xlsx",engine="openpyxl")
-                                                    break
-                                            except:
+                            pixel=""
+                        if "Sorry, this page isn't available" in pixel:
+                            pass
+                        else:
+                            try:
+                                check=WebDriverWait(driver2,5).until(EC.presence_of_element_located((By.XPATH,"/html/body/div[1]/section/main/div/div/article"))).text   
+                            except:
+                                driver2.refresh()
+                                driver2.get(ix)
+                                check=WebDriverWait(driver2,5).until(EC.presence_of_element_located((By.XPATH,"/html/body/div[1]/section/main/div/div/article"))).text
+                            if "This account is private" not in check:
+                                if int(WebDriverWait(driver2,20).until(EC.presence_of_element_located((By.XPATH,"//section/ul/li[2]"))).text.replace(" followers","").replace(" follower","").replace("k","00").replace(".","").replace("m","00000").replace(",","")) >500:
+                                    try:
+                                        WebDriverWait(driver2,20).until(EC.presence_of_element_located((By.XPATH,"//div[@class='eLAPa']"))).click()
+                                        import datetime
+                                        today= datetime.datetime.today()
+                                        from datetime import *
+                                        check=WebDriverWait(driver2,20).until(EC.presence_of_element_located((By.XPATH,"/html/body/div[6]/div[3]/div/article/div/div[2]/div/div/div[2]/div[2]/div/a/div/time"))).get_attribute("datetime").replace(".000Z","")
+                                        checky=WebDriverWait(driver2,20).until(EC.presence_of_element_located((By.XPATH,"/html/body/div[6]/div[3]/div/article/div/div[2]/div/div/div[2]/div[2]/div/a/div/time"))).get_attribute("datetime").replace(".000Z","")
+                                        checky=datetime.strptime(checky,"%Y-%m-%dT%X")
+                                        number_of_weeks=abs(today-checky).days
+                                        if number_of_weeks/7 <7:
+                                            for insta_liky in range(5):
                                                 try:
-                                                    p=WebDriverWait(driver2,5).until(EC.presence_of_element_located((By.CSS_SELECTOR,".EDfFK > div:nth-child(1) > div:nth-child(1) > div:nth-child(1) > a:nth-child(1) > div:nth-child(1)"))).text
-                                                except:
-                                                    insta_liky=insta_liky-1
-                                                    pass
-                                            try:
-                                                small_check=WebDriverWait(driver2,5).until(EC.presence_of_element_located((By.XPATH,'/html/body/div[6]/div[3]/div/article/div/div[2]/div/div/div[2]/section[2]/div/div/div'))).text
-                                                if "Liked by" in small_check:
-                                                    insta_liky=insta_liky-1
-                                                    pass
-                                                else:
-                                                    p=p.replace(",","").replace(" likes","").replace(" like","")
+                                                    WebDriverWait(driver2,3).until(EC.presence_of_element_located((By.XPATH,"/html/body/div[6]/div[3]/div/article/div/div[2]/div/div/div[2]/section[2]/div/span/div"))).click()
+                                                    p=WebDriverWait(driver2,5).until(EC.presence_of_element_located((By.XPATH,"/html/body/div[6]/div[3]/div/article/div/div[2]/div/div/div[2]/section[2]/div/div/div[4]/span"))).text.replace(",","").replace("likes","").replace("like","")
                                                     if int(p)>5000:
                                                         df=df.append({"Links":ix},ignore_index=True)
                                                         df=df.drop_duplicates(subset="Links",keep="first")
                                                         df.to_excel("outputy.xlsx",engine="openpyxl")
                                                         break
-                                            except:
-                                                insta_liky=insta_liky-1
-                                            WebDriverWait(driver2,20).until(EC.presence_of_element_located((By.XPATH,"//div[@class=' l8mY4 feth3']/button"))).click()
-                                            likes=likes+int(p)
-                                        WebDriverWait(driver2,20).until(EC.presence_of_element_located((By.XPATH,"//*[@aria-label='Close']"))).click()
-                                        if int(likes/5) >=70:
-                                            df=df.append({"Links":ix},ignore_index=True)
-                                            df=df.drop_duplicates(subset="Links",keep="first")
-                                            df.to_excel("outputy.xlsx",engine="openpyxl")
-                                        likes=0
-                                except:
-                                    pass
+                                                except:
+                                                    try:
+                                                        p=WebDriverWait(driver2,5).until(EC.presence_of_element_located((By.CSS_SELECTOR,".EDfFK > div:nth-child(1) > div:nth-child(1) > div:nth-child(1) > a:nth-child(1) > div:nth-child(1)"))).text
+                                                    except:
+                                                        insta_liky=insta_liky-1
+                                                        pass
+                                                try:
+                                                    small_check=WebDriverWait(driver2,5).until(EC.presence_of_element_located((By.XPATH,'/html/body/div[6]/div[3]/div/article/div/div[2]/div/div/div[2]/section[2]/div/div/div'))).text
+                                                    if "Liked by" in small_check:
+                                                        insta_liky=insta_liky-1
+                                                        pass
+                                                    else:
+                                                        p=p.replace(",","").replace(" likes","").replace(" like","")
+                                                        if int(p)>5000:
+                                                            df=df.append({"Links":ix},ignore_index=True)
+                                                            df=df.drop_duplicates(subset="Links",keep="first")
+                                                            df.to_excel("outputy.xlsx",engine="openpyxl")
+                                                            break
+                                                except:
+                                                    insta_liky=insta_liky-1
+                                                WebDriverWait(driver2,20).until(EC.presence_of_element_located((By.XPATH,"//div[@class=' l8mY4 feth3']/button"))).click()
+                                                likes=likes+int(p)
+                                            WebDriverWait(driver2,20).until(EC.presence_of_element_located((By.XPATH,"//*[@aria-label='Close']"))).click()
+                                            if int(likes/5) >=70:
+                                                df=df.append({"Links":ix},ignore_index=True)
+                                                df=df.drop_duplicates(subset="Links",keep="first")
+                                                df.to_excel("outputy.xlsx",engine="openpyxl")
+                                            likes=0
+                                    except:
+                                        pass
                     else:
                         try:
                             WebDriverWait(driver2,1).until(EC.presence_of_element_located((By.XPATH,"//*[@aria-label='Close']"))).click()
@@ -429,62 +450,69 @@ while True:
                         driver2.get(ix)
                         driver2.refresh()
                         try:
-                            check=WebDriverWait(driver2,5).until(EC.presence_of_element_located((By.XPATH,"/html/body/div[1]/section/main/div/div/article"))).text   
+                            pixel=WebDriverWait(driver,5).until(EC.presence_of_element_located((By.XPATH,"/html/body/div[1]/section/main/div/div/h2"))).text
                         except:
-                            driver2.get(ix)
-                            driver2.refresh()
-                            check=WebDriverWait(driver2,5).until(EC.presence_of_element_located((By.XPATH,"/html/body/div[1]/section/main/div/div/article"))).text
-                        if "This account is private" not in check:
-                            if int(WebDriverWait(driver2,20).until(EC.presence_of_element_located((By.XPATH,"//section/ul/li[2]"))).text.replace(" followers","").replace(" follower","").replace("k","00").replace(".","").replace("m","00000").replace(",","")) >500:
-                                try:
-                                    WebDriverWait(driver2,20).until(EC.presence_of_element_located((By.XPATH,"//div[@class='eLAPa']"))).click()
-                                    import datetime
-                                    today= datetime.datetime.today()
-                                    from datetime import *
-                                    check=WebDriverWait(driver2,20).until(EC.presence_of_element_located((By.XPATH,"/html/body/div[6]/div[3]/div/article/div/div[2]/div/div/div[2]/div[2]/div/a/div/time"))).get_attribute("datetime").replace(".000Z","")
-                                    checky=WebDriverWait(driver2,20).until(EC.presence_of_element_located((By.XPATH,"/html/body/div[6]/div[3]/div/article/div/div[2]/div/div/div[2]/div[2]/div/a/div/time"))).get_attribute("datetime").replace(".000Z","")
-                                    checky=datetime.strptime(checky,"%Y-%m-%dT%X")
-                                    number_of_weeks=abs(today-checky).days
-                                    if number_of_weeks/7 <7:
-                                        for insta_liky in range(5):
-                                            try:
-                                                WebDriverWait(driver2,3).until(EC.presence_of_element_located((By.XPATH,"/html/body/div[6]/div[3]/div/article/div/div[2]/div/div/div[2]/section[2]/div/span/div"))).click()
-                                                p=WebDriverWait(driver2,5).until(EC.presence_of_element_located((By.XPATH,"/html/body/div[6]/div[3]/div/article/div/div[2]/div/div/div[2]/section[2]/div/div/div[4]/span"))).text.replace(",","").replace("likes","").replace("like","")
-                                                if int(p)>5000:
-                                                    df=df.append({"Links":ix},ignore_index=True)
-                                                    df=df.drop_duplicates(subset="Links",keep="first")
-                                                    df.to_excel("outputy.xlsx",engine="openpyxl")
-                                                    break
-                                            except:
+                            pixel=""
+                        if "Sorry, this page isn't available" in pixel:
+                            pass
+                        else:
+                            try:
+                                check=WebDriverWait(driver2,5).until(EC.presence_of_element_located((By.XPATH,"/html/body/div[1]/section/main/div/div/article"))).text   
+                            except:
+                                driver2.get(ix)
+                                driver2.refresh()
+                                check=WebDriverWait(driver2,5).until(EC.presence_of_element_located((By.XPATH,"/html/body/div[1]/section/main/div/div/article"))).text
+                            if "This account is private" not in check:
+                                if int(WebDriverWait(driver2,20).until(EC.presence_of_element_located((By.XPATH,"//section/ul/li[2]"))).text.replace(" followers","").replace(" follower","").replace("k","00").replace(".","").replace("m","00000").replace(",","")) >500:
+                                    try:
+                                        WebDriverWait(driver2,20).until(EC.presence_of_element_located((By.XPATH,"//div[@class='eLAPa']"))).click()
+                                        import datetime
+                                        today= datetime.datetime.today()
+                                        from datetime import *
+                                        check=WebDriverWait(driver2,20).until(EC.presence_of_element_located((By.XPATH,"/html/body/div[6]/div[3]/div/article/div/div[2]/div/div/div[2]/div[2]/div/a/div/time"))).get_attribute("datetime").replace(".000Z","")
+                                        checky=WebDriverWait(driver2,20).until(EC.presence_of_element_located((By.XPATH,"/html/body/div[6]/div[3]/div/article/div/div[2]/div/div/div[2]/div[2]/div/a/div/time"))).get_attribute("datetime").replace(".000Z","")
+                                        checky=datetime.strptime(checky,"%Y-%m-%dT%X")
+                                        number_of_weeks=abs(today-checky).days
+                                        if number_of_weeks/7 <7:
+                                            for insta_liky in range(5):
                                                 try:
-                                                    p=WebDriverWait(driver2,5).until(EC.presence_of_element_located((By.CSS_SELECTOR,".EDfFK > div:nth-child(1) > div:nth-child(1) > div:nth-child(1) > a:nth-child(1) > div:nth-child(1)"))).text
-                                                except:
-                                                    insta_liky=insta_liky-1
-                                                    pass
-                                            try:
-                                                small_check=WebDriverWait(driver2,5).until(EC.presence_of_element_located((By.XPATH,'/html/body/div[6]/div[3]/div/article/div/div[2]/div/div/div[2]/section[2]/div/div/div'))).text
-                                                if "Liked by" in small_check:
-                                                    insta_liky=insta_liky-1
-                                                    pass
-                                                else:
-                                                    p=p.replace(",","").replace(" likes","").replace(" like","")
+                                                    WebDriverWait(driver2,3).until(EC.presence_of_element_located((By.XPATH,"/html/body/div[6]/div[3]/div/article/div/div[2]/div/div/div[2]/section[2]/div/span/div"))).click()
+                                                    p=WebDriverWait(driver2,5).until(EC.presence_of_element_located((By.XPATH,"/html/body/div[6]/div[3]/div/article/div/div[2]/div/div/div[2]/section[2]/div/div/div[4]/span"))).text.replace(",","").replace("likes","").replace("like","")
                                                     if int(p)>5000:
                                                         df=df.append({"Links":ix},ignore_index=True)
                                                         df=df.drop_duplicates(subset="Links",keep="first")
                                                         df.to_excel("outputy.xlsx",engine="openpyxl")
                                                         break
-                                            except:
-                                                insta_liky=insta_liky-1
-                                            WebDriverWait(driver2,20).until(EC.presence_of_element_located((By.XPATH,"//div[@class=' l8mY4 feth3']/button"))).click()
-                                            likes=likes+int(p)
-                                        WebDriverWait(driver2,20).until(EC.presence_of_element_located((By.XPATH,"//*[@aria-label='Close']"))).click()
-                                        if int(likes/5) >=70:
-                                            df=df.append({"Links":ix},ignore_index=True)
-                                            df=df.drop_duplicates(subset="Links",keep="first")
-                                            df.to_excel("outputy.xlsx",engine="openpyxl")
-                                        likes=0
-                                except:
-                                    pass
+                                                except:
+                                                    try:
+                                                        p=WebDriverWait(driver2,5).until(EC.presence_of_element_located((By.CSS_SELECTOR,".EDfFK > div:nth-child(1) > div:nth-child(1) > div:nth-child(1) > a:nth-child(1) > div:nth-child(1)"))).text
+                                                    except:
+                                                        insta_liky=insta_liky-1
+                                                        pass
+                                                try:
+                                                    small_check=WebDriverWait(driver2,5).until(EC.presence_of_element_located((By.XPATH,'/html/body/div[6]/div[3]/div/article/div/div[2]/div/div/div[2]/section[2]/div/div/div'))).text
+                                                    if "Liked by" in small_check:
+                                                        insta_liky=insta_liky-1
+                                                        pass
+                                                    else:
+                                                        p=p.replace(",","").replace(" likes","").replace(" like","")
+                                                        if int(p)>5000:
+                                                            df=df.append({"Links":ix},ignore_index=True)
+                                                            df=df.drop_duplicates(subset="Links",keep="first")
+                                                            df.to_excel("outputy.xlsx",engine="openpyxl")
+                                                            break
+                                                except:
+                                                    insta_liky=insta_liky-1
+                                                WebDriverWait(driver2,20).until(EC.presence_of_element_located((By.XPATH,"//div[@class=' l8mY4 feth3']/button"))).click()
+                                                likes=likes+int(p)
+                                            WebDriverWait(driver2,20).until(EC.presence_of_element_located((By.XPATH,"//*[@aria-label='Close']"))).click()
+                                            if int(likes/5) >=70:
+                                                df=df.append({"Links":ix},ignore_index=True)
+                                                df=df.drop_duplicates(subset="Links",keep="first")
+                                                df.to_excel("outputy.xlsx",engine="openpyxl")
+                                            likes=0
+                                    except:
+                                        pass
                     else:
                         try:
                             WebDriverWait(driver2,1).until(EC.presence_of_element_located((By.XPATH,"//*[@aria-label='Close']"))).click()
