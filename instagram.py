@@ -56,7 +56,7 @@ fo=[]
 followerss=[]
 print("total number of followers is:",followers_instagram)
 WebDriverWait(driver,20).until(EC.presence_of_element_located((By.XPATH,"//section/ul/li[2]"))).click()
-time.sleep(1)
+time.sleep(2)
 driver.execute_script('''
             var fDialog = document.querySelector('div[role="dialog"] .isgrP');
             fDialog.scrollTop = fDialog.scrollHeight
@@ -66,7 +66,8 @@ WebDriverWait(driver,20).until(EC.presence_of_element_located((By.CSS_SELECTOR,"
 WebDriverWait(driver,20).until(EC.presence_of_element_located((By.XPATH,"//section/ul/li[2]"))).click()
 followersss=[]
 followerss=[]
-time.sleep(1)
+print("wait for 5 sec to make the links apears")
+time.sleep(5)
 while True:
     driver.execute_script('''
             var fDialog = document.querySelector('div[role="dialog"] .isgrP');
