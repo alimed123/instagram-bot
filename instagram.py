@@ -66,8 +66,8 @@ WebDriverWait(driver,20).until(EC.presence_of_element_located((By.CSS_SELECTOR,"
 WebDriverWait(driver,20).until(EC.presence_of_element_located((By.XPATH,"//section/ul/li[2]"))).click()
 followersss=[]
 followerss=[]
-print("wait for 5 sec to make the links apears")
-time.sleep(5)
+print("wait for 10 sec to make the links apears")
+time.sleep(10)
 while True:
     driver.execute_script('''
             var fDialog = document.querySelector('div[role="dialog"] .isgrP');
@@ -316,7 +316,8 @@ try:
     WebDriverWait(driver,1).until(EC.presence_of_element_located((By.XPATH,"//section/ul/li[3]"))).click()
 except:
     pass
-time.sleep(1)
+print("wait for 10 sec to make the links apears")
+time.sleep(10)
 while True:
     driver.execute_script('''
             var fDialog = document.querySelector('div[role="dialog"] .isgrP');
