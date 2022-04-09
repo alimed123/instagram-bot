@@ -61,8 +61,9 @@ driver.execute_script('''
             var fDialog = document.querySelector('div[role="dialog"] .isgrP');
             fDialog.scrollTop = fDialog.scrollHeight
         ''')
-time.sleep(1)
+time.sleep(2)
 WebDriverWait(driver,20).until(EC.presence_of_element_located((By.CSS_SELECTOR,".lC6p0 > button:nth-child(1)"))).click()
+time.sleep(1)
 WebDriverWait(driver,20).until(EC.presence_of_element_located((By.XPATH,"//section/ul/li[2]"))).click()
 followersss=[]
 followerss=[]
